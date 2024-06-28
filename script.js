@@ -3,4 +3,6 @@ const result = () => {
     return "Hello from the JavaScript file!";
 };
 
-console.log(result());
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('result').innerText = result();
+});
