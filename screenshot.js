@@ -1,25 +1,24 @@
-// screenshot.js
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: 'new' }); // Use the new headless mode
+    // Launch browser with new headless mode
+    const browser = await puppeteer.launch({ headless: 'new' });
     const page = await browser.newPage();
 
-    // Replace with your actual GitHub Pages URL
+    // Replace this URL with your actual GitHub Pages URL
     const url = 'https://<username>.github.io/<repository>/';
-    await page.goto(url, { waitUntil: 'networkidle2' }).catch(err => {
-        console.error('Failed to navigate to the URL:', err);
-        process.exit(1);
-    });
+    try {
+        await page.goto(url, { waitUntil: 'networkidle2' });
 
-    // Wait for the JavaScript to execute and the result to appear
-    await page.waitForSelector('#result').catch(err => {
-        console.error('Failed to find the result selector:', err);
-        process.exit(1);
-    });
+        // Ensure the element is available before taking a screenshot
+        await page.waitForSelector('#result', { timeout: 10000 });
 
-    // Take a screenshot
-    await page.screenshot({ path: 'result.png' });
-
-    await browser.close();
+        // Take a screenshot
+        await page.screenshot({ path: 'result.png' });
+        console.log("Screenshot taken successfully.");
+    } catch (error) {
+        console.error("Error taking screenshot:", error);
+    } finally {
+        await browser.close();
+    }
 })();
