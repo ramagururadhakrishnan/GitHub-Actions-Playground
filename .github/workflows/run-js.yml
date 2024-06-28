@@ -24,16 +24,13 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Check Puppeteer Version
-      run: npm list puppeteer
-
     - name: Build Site
-      run: echo "Building site..."
+      run: echo "Building site..."  # Add actual build steps if needed
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
-        personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+        personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}  # Use the newly created secret
         publish_dir: './'
 
     - name: Capture Screenshot
