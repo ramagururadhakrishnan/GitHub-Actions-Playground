@@ -1,4 +1,4 @@
-name: Run JavaScript Code
+name: Run JavaScript and Capture Screenshot
 
 on: [push]
 
@@ -19,13 +19,13 @@ jobs:
       run: npm install
 
     - name: Run JavaScript Code
-      run: node script.js
+      run: npm start
 
-    - name: Collect and Display Results
-      id: collect-results
-      run: |
-        result=$(node script.js)
-        echo "result=$result" >> $GITHUB_ENV
+    - name: Capture Screenshot
+      run: npm run screenshot
 
-    - name: Output Results
-      run: echo "Result is ${{ env.result }}"
+    - name: Upload Screenshot
+      uses: actions/upload-artifact@v3
+      with:
+        name: result-screenshot
+        path: result.png
