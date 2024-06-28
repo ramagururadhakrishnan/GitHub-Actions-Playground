@@ -1,0 +1,39 @@
+name: Generate Gantt Chart
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  
+  workflow_dispatch:   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Specify the Node.js version to use
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate Gantt Chart
+        id: generate-gantt
+        uses: andymckay/github-project-gantt@v0.2.0
+        with:
+          project_name: "GitHub-Actions-Playground" 
+          token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}  
+
+      - name: Save Gantt Chart Image
+        run: |
+          mkdir -p gantt-charts
+          cp ${{ steps.generate-gantt.outputs.gantt_file }} gantt-charts/gantt-$(date +%Y-%m-%d).png
+
+      - name: Upload Gantt Chart as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gantt-chart
+          path: gantt-charts/gantt-$(date +%Y-%m-%d).png
