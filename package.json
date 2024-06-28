@@ -1,0 +1,15 @@
+{
+  "name": "github-actions-js",
+  "version": "1.0.0",
+  "description": "A project to run JavaScript code using GitHub Actions.",
+  "main": "script.js",
+  "scripts": {
+    "start": "node script.js"
+  },
+  "author": "Ramaguru Radhakrishnan",
+  "license": "MIT",
+  "dependencies": {
+    // Add any dependencies here, for example:
+    // "axios": "^0.21.1"
+  }
+}
