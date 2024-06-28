@@ -1,0 +1,31 @@
+name: Run JavaScript Code
+
+on: [push]
+
+jobs:
+  run-code:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run JavaScript Code
+      run: node script.js
+
+    - name: Collect and Display Results
+      id: collect-results
+      run: |
+        result=$(node script.js)
+        echo "result=$result" >> $GITHUB_ENV
+
+    - name: Output Results
+      run: echo "Result is ${{ env.result }}"
