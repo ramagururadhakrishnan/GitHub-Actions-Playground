@@ -1,0 +1,11 @@
+{
+  "name": "github-actions-js",
+  "version": "1.0.0",
+  "description": "A project to run JavaScript code using GitHub Actions.",
+  "scripts": {
+    "screenshot": "node screenshot.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.3.8"
+  }
+}
