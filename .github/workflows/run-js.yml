@@ -1,9 +1,12 @@
-name: Run JavaScript and Capture Screenshot
+name: Deploy and Capture Screenshot
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  run-code:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,8 +21,15 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Run JavaScript Code
-      run: npm start
+    - name: Build Site
+      run: echo "Building site..."
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: './'
+        cname: '<username>.github.io'  # Optional if using a custom domain
 
     - name: Capture Screenshot
       run: npm run screenshot
