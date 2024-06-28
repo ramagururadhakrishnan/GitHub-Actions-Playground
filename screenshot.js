@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
 
     // Replace this URL with your actual GitHub Pages URL
-    const url = 'https://<username>.github.io/<repository>/';
+    const url = 'https://ramagururadhakrishnan.github.io/GitHub-Actions-Playground/';
     try {
         await page.goto(url, { waitUntil: 'networkidle2' });
 
