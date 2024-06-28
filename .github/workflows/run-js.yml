@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    permissions:  # Add this section to grant write access
+    permissions:
       contents: write
 
     steps:
@@ -24,17 +24,20 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Check Puppeteer Version
+      run: npm list puppeteer
+
     - name: Build Site
-      run: echo "Building site..."  # Add actual build steps if needed
+      run: echo "Building site..."
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
-        personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}  # Use the newly created secret
-        publish_dir: './'  # Ensure this is the directory where index.html is located
+        personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+        publish_dir: './'
 
     - name: Capture Screenshot
-      run: npm run screenshot
+      run: node screenshot.js
 
     - name: Upload Screenshot
       uses: actions/upload-artifact@v3
